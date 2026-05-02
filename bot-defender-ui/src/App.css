@@ -570,3 +570,123 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
 }
+
+/* =========================================
+   RESPONSIVE DASHBOARD LAYOUT
+   ========================================= */
+
+.dashboard-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+/* 1. Metric Cards (Auto-stacking) */
+.metric-grid {
+  display: grid;
+  /* This is the magic line: It tries to fit as many 250px columns as possible, then wraps */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.metric-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* 2. Charts and Main Content Areas */
+.content-grid {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 20px;
+  align-items: stretch; /* 👈 Isko 'start' se 'stretch' kar do */
+}
+.dashboard-panel {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* 3. The Table Saver (Horizontal Scroll for mobile) */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* Allows horizontal scrolling ONLY on the table, not the whole page */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.dashboard-table {
+  width: 100%;
+  min-width: 600px; /* Forces table to stay wide, making the wrapper scrollable */
+  border-collapse: collapse;
+}
+
+/* =========================================
+   MOBILE BREAKPOINTS (Screens under 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px; /* Less padding on small screens */
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr; /* Force charts/panels to stack vertically */
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr; /* Optional: Stack metrics 1 by 1 on very small phones */
+  }
+}
+
+/* =========================================
+   DASHBOARD MOBILE TWEAKS & EXPANDABLE TABLE
+   ========================================= */
+
+/* Hide standard features column on mobile */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  /* Make metric boxes much smaller on mobile */
+  .metric-card {
+    padding: 12px 15px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .metric-card h2 {
+    font-size: 1.5rem !important;
+    margin-top: 5px !important;
+  }
+}
+
+/* Hide the expand button on Desktop */
+@media (min-width: 769px) {
+  .mobile-expand-btn {
+    display: none !important;
+  }
+}
+
+/* Styling for the expanded features row on mobile */
+.expanded-features-row {
+  background: rgba(15, 23, 42, 0.5);
+  border-bottom: 1px solid #1e293b;
+}
+
+.feature-tag {
+  background: #334155;
+  color: #cbd5e1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin: 2px;
+  display: inline-block;
+}
